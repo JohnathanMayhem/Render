@@ -13,5 +13,5 @@ public:
         : Figure(params.x, params.y, params.color),
           r_(params.r) {}
 
-    void locate(std::vector<Color> &canva, long long rows, long long cols) const override;
+    std::vector<std::pair<std::pair<long double, long double>, Color>> Circle::locate() const override;
 };

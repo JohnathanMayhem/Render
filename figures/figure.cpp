@@ -3,39 +3,36 @@
 #include "Rectangle.h"
 #include "Triangle.h"
 
-void Circle::locate(std::vector<Color> &canva, long long rows, long long cols) const override {
-    for (long double row = -r_; row <= r_; row += 1) {
-        long double col_circle = std::sqrt(r_ * r_ - row * row);
-        long long col_canva1 = std::llround(col_circle + y_);
-        long long col_canva2 = std::llround(-col_circle + y_);
-        long long row_canva1 = std::llround(col_circle + x_);
-        long long row_canva2 = std::llround(-col_circle + x_);
-        if (col_canva1 >= 0 && std::llround(row_canva1) >= 0) {
-            canva[row_canva1 * cols + col_canva1] = color_;
-        }
-        if (col_canva2 >= 0 && std::llround(row_canva2) >= 0) {
-            canva[row_canva2 * cols + col_canva2] = color_;
-        }
+std::vector<std::pair<std::pair<long double, long double>, Color>> Circle::locate() const override {
+    std::vector<std::pair<std::pair<long double, long double>, Color>> circle;
+    for (long double x = -r_; x <= r_; x += 1) {
+        long double y1 = sqrt(r_ * r_ - x * x);
+        long double y2 = -sqrt(r_ * r_ - x * x);
+        circle.push_back(std::make_pair(std::make_pair(x, y1), color_));
+        circle.push_back(std::make_pair(std::make_pair(x, y1), color_));
     }
+    return circle;
 }
 
-void Rectangle::locate(std::vector<Color>& canva, long long rows, long long cols) const override {
-    for (long long row = std::llround(y_); row < std::round(y_ + a_); row++) {
-        for (long long col = std::llround(x_); col < std::llround(x_ + b_); col++) {
-            if (row > 0 && col > 0) {
-                canva[row * cols + col] = color_;
-            }
+std::vector<std::pair<std::pair<long double, long double>, Color>> Rectangle::locate() const override {
+    std::vector<std::pair<std::pair<long double, long double>, Color>> rectancle;
+    for (long double y = y_; y < y + a_; y++) {
+        for (long double x = x_; x < x_ + b_; x++) {
+            rectancle.push_back(std::make_pair(std::make_pair(x, y), color_));
         }
     }
+    return rectancle;
 }
 
-void Triangle::locate(std::vector<Color> &canva, long long rows, long long cols) const override {
+std::vector<std::pair<std::pair<long double, long double>, Color>> Triangle::locate() const override {
+    std::vector<std::pair<std::pair<long double, long double>, Color>> triangle;
     long double k = b_ / a_;
     long double c = b_ - k * a_;
-    for (long long row = std::llround(x_); row < std::llround(x_ + a_); row++) {
-        for (long long col = 0; col <= std::round(k * row + c); col++) {
-            canva[row * col + col] = color_;
+    for (long double x = std::llround(x_); x < std::llround(x_ + a_); x++) {
+        for (long double y = 0; y <= k * x + c; y++) {
+            triangle.push_back(std::make_pair(std::make_pair(x, y), color_));
         }
     }
+    return triangle;
 }
 

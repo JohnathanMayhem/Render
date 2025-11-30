@@ -15,7 +15,8 @@ add_executable(untitled7 main.cpp
         Fabrics/SquareFabric.h
         Fabrics/RectangleFabric.h
         Fabrics/CircleFabric.h
-        Interpritator.h
         figures/figure.cpp
         Fabrics/fabric.cpp
+        Interpreter.h
+        Interpreter.cpp
 )

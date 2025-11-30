@@ -4,20 +4,22 @@
 #include "SquareFabric.h"
 #include "TriangleFabric.h"
 
-[[nodiscard]] Figure* CircleFabric::createFigure() override {
+[[nodiscard]] Figure* CircleFabric::createFigure(long double view_x, long double view_y, long double view_width,
+                                               long double view_height) const override {
     CircleArgs circle_args = parameters_;
-    circle_args.x += scene_x_ + dx_;
-    circle_args.y += scene_y_ + dy_;
+    circle_args.x += view_x + dx_;
+    circle_args.y += view_y + dy_;
     circle_args.r *= scale_;
     circle_args.color = color_;
 
     return new Circle(circle_args);
 }
 
-[[nodiscard]] Figure *RectangleFabric::createFigure() override {
+[[nodiscard]] Figure *RectangleFabric::createFigure(long double view_x, long double view_y, long double view_width,
+                                               long double view_height) const override {
     RectangleArgs args = parameters_;
-    args.x += scene_x_ + dx_;
-    args.y += scene_y_ + dy_;
+    args.x += view_x + dx_;
+    args.y += view_y + dy_;
     args.a *= scale_;
     args.b *= scale_;
     args.color = color_;
@@ -25,21 +27,23 @@
     return new Rectangle(args);
 }
 
-[[nodiscard]] Figure* SquareFabric::createFigure() override {
+[[nodiscard]] Figure* SquareFabric::createFigure(long double view_x, long double view_y, long double view_width,
+                                               long double view_height) const override {
     SquareArgs square_args = parameters_;
 
-    square_args.x += scene_x_ + dx_;
-    square_args.y += scene_y_ + dy_;
+    square_args.x += view_x + dx_;
+    square_args.y += view_y + dy_;
     square_args.a *= scale_;
     square_args.color = color_;
 
     return new Rectangle(square_args);
 }
 
-[[nodiscard]] Figure* TriangleFabric::createFigure() override {
+[[nodiscard]] Figure* TriangleFabric::createFigure(long double view_x, long double view_y, long double view_width,
+                                               long double view_height) const override {
     TriangleArgs triangle_args = parameters_;
-    triangle_args.x += scene_x_ + dx_;
-    triangle_args.y += scene_y_ + dy_;
+    triangle_args.x += view_x + dx_;
+    triangle_args.y += view_y + dy_;
     triangle_args.a *= scale_;
     triangle_args.color = color_;
 
@@ -48,11 +52,6 @@
 
 void FigureFabric::changeLayer(const uint32_t layer) {
     layer_ = layer;
-}
-
-void FigureFabric::setScene(const long double scene_x, const long double scene_y) {
-    scene_x_ = scene_x;
-    scene_y_ = scene_y;
 }
 
 void FigureFabric::scale(const long double scale) {

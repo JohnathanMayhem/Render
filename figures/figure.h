@@ -17,5 +17,5 @@ public:
 
     virtual ~Figure() = default;
 
-    virtual void locate(std::vector<Color> &canva, long long rows, long long cols) const;
+    virtual std::vector<std::pair<std::pair<long double, long double>, Color>> locate() const;
 };

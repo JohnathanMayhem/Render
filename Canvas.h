@@ -71,22 +71,45 @@ public:
         figures_.insert(figures_db_.at(id));
     }
 
-    void create_holst(long double width, long double height, const Color color) {
+    void create_holst(long long width, long double height) {
         width_ = width;
         height_ = height;
-        holst_.resize(std::llround(width) * std::llround(height));
+        holst_.resize(width * height);
         for (int i = 0; i < holst_.size(); i++) {
-            holst_[i] = color;
+            holst_[i] = {0, 0, 0};
         }
     }
 
+    void set_color(uint64_t id, const Color color) {
+        if (!figures_db_.count(id)) {
+            throw std::invalid_argument("Figure not exists");
+        }
+        figures_db_.at(id)->setColor(color);
+    }
 
-    void render(const std::string &filename, const Color color, const long double x, const long double y,
-                const long double width, const long double height) {
-        create_holst(width, height, color);
+
+    void render(const std::string &filename,
+                const long double x,
+                const long double y,
+                const long double scene_width,
+                const long double scene_height,
+                long long         width,
+                long long         height)
+    {
+        create_holst(width, height);
         for (auto figureFabric: figures_) {
-            Figure *figure = figureFabric->createFigure();
-            figure->locate(holst_, width, height);
+            Figure *figure = figureFabric->createFigure(x, y);
+            for (auto &point: figure->locate()) {
+                if (point.first.first > x && point.first.first < x + scene_width && point.first.second > y && point.
+                    first.second < y + scene_height) {
+                    long long pos_x = std::llround(point.first.first);
+                    long long pos_y = std::llround(point.first.second);
+                    if (pos_x < width && pos_y < height && pos_x > 0 && pos_y > 0) {
+                        holst_[pos_x + pos_y * width] = point.second;
+                    }
+                }
+            }
+
             delete figure;
         }
         std::ofstream file(filename);

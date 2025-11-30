@@ -8,5 +8,5 @@ private:
 public:
     CircleFabric(uint32_t layer, const CircleArgs &figure_args) : FigureFabric(layer), parameters_(figure_args) {};
 
-    [[nodiscard]] Figure* createFigure() override;
+    [[nodiscard]] Figure* createFigure(long double view_x, long double view_y) override;
 };

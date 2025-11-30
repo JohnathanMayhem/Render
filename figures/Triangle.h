@@ -13,5 +13,5 @@ public:
                                                     a_(params.a), b_(params.b) {
     }
 
-    void locate(std::vector<Color> &canva, long long rows, long long cols) const override;
+    std::vector<std::pair<std::pair<long double, long double>, Color>> Circle::locate() const override ;
 };

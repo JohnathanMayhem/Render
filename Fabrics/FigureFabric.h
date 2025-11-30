@@ -6,8 +6,6 @@
 class FigureFabric {
 protected:
     uint32_t layer_;
-    long double scene_x_;
-    long double scene_y_;
     long double scale_;
     long double dx_;
     long double dy_;
@@ -20,14 +18,12 @@ public:
         }
     };
 
-    explicit FigureFabric(const uint32_t layer): scene_x_(0), scene_y_(0), dx_(0), dy_(0),
+    explicit FigureFabric(const uint32_t layer): dx_(0), dy_(0),
                                                                  color_{0, 0, 0},
                                                                  layer_(layer), scale_(1) {
     }
 
     void changeLayer(const uint32_t layer);
-
-    void setScene(const long double scene_x, const long double scene_y);
 
     void scale(const long double scale);
 
@@ -35,7 +31,7 @@ public:
 
     void setColor(const Color color);
 
-    [[nodiscard]] virtual Figure *createFigure();
+    [[nodiscard]] virtual Figure *createFigure(long double view_x, long double view_y);
 
     virtual ~FigureFabric();
 };

@@ -8,5 +8,5 @@ private:
     SquareArgs parameters_;
 public:
     SquareFabric(const uint32_t layer, const SquareArgs &args) : FigureFabric(layer), parameters_(args) {}
-    [[nodiscard]] Figure* createFigure() override;
+    [[nodiscard]] Figure* createFigure(long double view_x, long double view_y) override;
 };

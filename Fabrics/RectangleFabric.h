@@ -10,5 +10,5 @@ public:
     RectangleFabric(const uint32_t layer, RectangleArgs args) : FigureFabric(layer), parameters_(args) {
     };
 
-    [[nodiscard]] Figure *createFigure() override;
+    [[nodiscard]] Figure *createFigure(long double view_x, long double view_y) override;
 };

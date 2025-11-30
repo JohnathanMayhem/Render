@@ -25,27 +25,15 @@ public:
                                                                  layer_(layer), scale_(1) {
     }
 
-    void changeLayer(const uint32_t layer) {
-        layer_ = layer;
-    }
+    void changeLayer(const uint32_t layer);
 
-    void setScene(const long double scene_x, const long double scene_y) {
-        scene_x_ = scene_x;
-        scene_y_ = scene_y;
-    }
+    void setScene(const long double scene_x, const long double scene_y);
 
-    void scale(const long double scale) {
-        scale_ *= scale;
-    }
+    void scale(const long double scale);
 
-    void move(const long double dx, const long double dy) {
-        dx_ += dx;
-        dy_ += dy;
-    }
+    void move(const long double dx, const long double dy);
 
-    void setColor(const Color color) {
-        color_ = color;
-    }
+    void setColor(const Color color);
 
     [[nodiscard]] virtual Figure *createFigure();
 

@@ -10,14 +10,5 @@ public:
     RectangleFabric(const uint32_t layer, RectangleArgs args) : FigureFabric(layer), parameters_(args) {
     };
 
-    [[nodiscard]] Figure *createFigure() override {
-        RectangleArgs args = parameters_;
-        args.x += scene_x_ + dx_;
-        args.y += scene_y_ + dy_;
-        args.a *= scale_;
-        args.b *= scale_;
-        args.color = color_;
-
-        return new Rectangle(args);
-    }
+    [[nodiscard]] Figure *createFigure() override;
 };

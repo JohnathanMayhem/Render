@@ -17,15 +17,7 @@ public:
 
     ~Rectangle() override = default;
 
-    void locate(std::vector<Color>& canva, long long rows, long long cols) const override {
-        for (long long row = std::llround(y_); row < std::round(y_ + a_); row++) {
-            for (long long col = std::llround(x_); col < std::llround(x_ + b_); col++) {
-                if (row > 0 && col > 0) {
-                    canva[row * cols + col] = color_;
-                }
-            }
-        }
-    }
+    void locate(std::vector<Color>& canva, long long rows, long long cols) const override;
 
 
 };
